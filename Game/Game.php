@@ -264,7 +264,7 @@ class Game
                 for ($i = 0; $i < 3; $i++) {
                     for ($j = 0; $j < 3; $j++) {
                         $newPosition = chr(ord($position[0]) + $d[$i]) . ($position[1] + $d[$j]);
-                        if ($newPosition != $pieceKey and $this->canHit($newPosition, $pieceKey)) {
+                        if ($newPosition != $pieceKey and $this->canHit($newPosition, $pieceKey, $position)) {
                             $matePositions[$newPosition] = $pieceKey;
                         } else {
                             try {
@@ -324,13 +324,20 @@ class Game
      *
      * @param $position string position which {@link Piece} should hit
      * @param $pieceKey string position of {@link Piece}
+     * @param string $king position of the King
      * @return bool true if {@link Piece} can hit input position
      */
-    private function canHit($position, $pieceKey)
+    private function canHit($position, $pieceKey, $king = '')
     {
         try {
             GameController::checkCoordinates($position);
-            $this->pieces[$pieceKey]->move($pieceKey, $position, $this->pieces);
+            $copyPieces = $this->pieces;
+            if ($king != '') {
+                $kingPiece = $copyPieces[$king];
+                unset($copyPieces[$king]);
+                $copyPieces[$position] = $kingPiece;
+            }
+            $this->pieces[$pieceKey]->move($pieceKey, $position, $copyPieces);
             return true;
         } catch (IncorrectMoveException $ignore) {
         }
