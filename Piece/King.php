@@ -1,6 +1,7 @@
 <?php
 
 require_once 'AbstractPiece.php';
+
 class King extends AbstractPiece
 {
     public function move($from, $to, $pieces)

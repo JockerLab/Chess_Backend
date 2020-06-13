@@ -1,6 +1,8 @@
 <?php
 
 require_once 'Piece.php';
+require_once 'Exceptions/IncorrectMoveException.php';
+
 abstract class AbstractPiece implements Piece
 {
     private $name, $color;

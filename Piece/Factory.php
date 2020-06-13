@@ -5,9 +5,17 @@ require_once 'Knight.php';
 require_once 'Pawn.php';
 require_once 'Queen.php';
 require_once 'Rook.php';
+
 class Factory
 {
-    public function getPiece($name, $color) {
+    /**
+     * Get instance of chess piece by name
+     * @param $name string name of {@link Piece}
+     * @param $color string color of {@link Piece}
+     * @return Bishop|King|Knight|Pawn|Queen|Rook|string instance of chess piece
+     */
+    public function getPiece($name, $color)
+    {
         switch ($name) {
             case 'King':
                 return new King($name, $color);
@@ -28,5 +36,6 @@ class Factory
                 return new Rook($name, $color);
                 break;
         }
+        return '';
     }
 }
