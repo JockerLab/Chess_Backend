@@ -5,7 +5,7 @@ require_once 'AbstractPiece.php';
 class Bishop extends AbstractPiece
 {
 
-    public function move($from, $to, $pieces)
+    public function move($from, $to, &$pieces)
     {
         $dx = $to[0] > $from[0] ? 1 : -1;
         $dy = $to[1] > $from[1] ? 1 : -1;

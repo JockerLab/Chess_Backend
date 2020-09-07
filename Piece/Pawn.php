@@ -5,7 +5,7 @@ require_once 'AbstractPiece.php';
 class Pawn extends AbstractPiece
 {
 
-    public function move($from, $to, $pieces)
+    public function move($from, $to, &$pieces)
     {
         $current = $pieces[$from];
         $start = $current->getColor() == 'White' ? 2 : 7;

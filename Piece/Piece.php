@@ -21,5 +21,5 @@ interface Piece
      * @return void if move is correct
      * @throws IncorrectMoveException if move is incorrect
      */
-    public function move($from, $to, $pieces);
+    public function move($from, $to, &$pieces);
 }

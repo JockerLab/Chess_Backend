@@ -151,6 +151,16 @@ class Game
         } catch (IncorrectMoveException | DatabaseException $e) {
             throw $e;
         }
+        if ($this->checkCastling($from, $to)) {
+            $last = $from[0] > $to[0] ? 'a' : 'h';
+            $dx = $from[0] > $to[0] ? -1 : 1;
+            $rook = $last . $from[1];
+            $this->pieces[$from]->setFirstMove(false);
+            $this->pieces[$rook]->setFirstMove(false);
+            $currentPiece1 = $this->pieces[$rook];
+            unset($this->pieces[$rook]);
+            $this->pieces[chr(ord($to[0]) - $dx) . $to[1]] = $currentPiece1;
+        }
         $currentPiece = $this->pieces[$from];
         unset($this->pieces[$from]);
         $this->pieces[$to] = $currentPiece;
@@ -158,6 +168,18 @@ class Game
         $this->playerNumber = $this->playerNumber == 1 ? 2 : 1;
         $this->updatePlayerNumber($this->playerNumber);
         ksort($this->pieces);
+    }
+
+    /**
+     * Check if move is castling
+     */
+    private function checkCastling($from, $to) {
+        if (abs(ord($from[0]) - ord($to[0])) == 2 and
+            abs($from[1] - $to[1]) == 0 and
+            $this->pieces[$from] instanceof King) {
+            return true;
+        }
+        return false;
     }
 
     /**

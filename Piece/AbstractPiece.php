@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Piece.php';
-require_once 'Exceptions/IncorrectMoveException.php';
+require_once __DIR__ . '/../Exceptions/IncorrectMoveException.php';
 
 abstract class AbstractPiece implements Piece
 {
@@ -23,5 +23,5 @@ abstract class AbstractPiece implements Piece
         return $this->name;
     }
 
-    abstract public function move($from, $to, $pieces);
+    abstract public function move($from, $to, &$pieces);
 }
